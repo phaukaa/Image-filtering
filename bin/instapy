@@ -1,0 +1,73 @@
+#!/usr/bin/env python3
+from argparse import ArgumentParser
+import instapy
+import cv2
+
+filename=None
+output=None
+sepia=False
+gray=False
+scale=1
+implement="numpy"
+
+parser = ArgumentParser(prog="InstaPy", description="Applies instagram filter to picture")
+parser.add_argument('-f' , '--file',
+                    help="Pass the file you want to apply filter to",
+                    required=True,
+                    type=str,
+                    nargs=1)  
+
+parser.add_argument('-se' , '--sepia',
+                    required=False,
+                    help="Select sepia filter",
+                    action="store_true")
+
+parser.add_argument('-g' , '--gray',
+                    required=False,
+                    help="Select gray filter",
+                    action="store_true")
+
+parser.add_argument('-sc' , '--scale',
+                    required=False,
+                    help="Pass the factor you want to resize the image to",
+                    type=float,
+                    nargs=1)
+
+parser.add_argument('-i' , '--implement',
+                    help="Pass the implementation you want to use to filter the image",
+                    type=str,
+                    nargs=1,
+                    required=False,
+                    choices={"python", "numpy", "numba"})
+
+parser.add_argument('-o' , '--out',
+                    required=False,
+                    help="Pass the output filename you want",
+                    type=str,
+                    nargs=1)
+
+args = parser.parse_args()
+
+if args.file:
+    filename = args.file[0]
+
+if args.sepia:
+    sepia = True
+
+if args.gray:
+    gray = True
+
+if args.implement:
+    implement = args.implement[0]
+
+if args.scale:
+    scale = args.scale[0]
+
+if args.out:
+    output = args.out[0]
+
+
+if sepia:
+    instapy.sepia_image(filename, output, scale, implement)
+elif gray:
+    instapy.grayscale_image(filename, output, scale, implement)

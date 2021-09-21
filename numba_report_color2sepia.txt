@@ -1,0 +1,6 @@
+Timing: numba_color2sepia
+
+Average runtime after 3 runs: 0.686472s
+Average runtime running of numpy_color2sepia is 10.93 times faster than python_color2sepia
+Average runtime running of numpy_color2sepia is 5.34 times slower than numpy_color2sepia
+Timing performed using: time.perf_counter()
